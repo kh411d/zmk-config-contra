@@ -14,9 +14,6 @@
 #define BT_CTRL     3
 #define FW_CTRL     4
 
-&mt {
-    tapping-term-ms = <110>;
-};
 
 / {
     behaviors {
@@ -27,13 +24,20 @@
             bindings = <&kp ENTER>, <&kp COLON>;
             mods = <MOD_LSFT>;
         };
-        tldesc: tilde_escape {
-                        compatible = "zmk,behavior-mod-morph";
-                        label = "TILDE_ESCAPE";
-                        #binding-cells = <0>;
-                        bindings = <&kp ESC>, <&kp TILDE>;
-                        mods = <(MOD_LSFT|MOD_RGUI)>;
-                };
+        qtab: q_tab {
+            compatible = "zmk,behavior-tap-dance";
+            label = "Q_TAB";
+            #binding-cells = <0>;
+            tapping-term-ms = <200>;
+            bindings = <&kp Q>, <&kp TAB>;
+        };
+        pbspc: p_bspc {
+            compatible = "zmk,behavior-tap-dance";
+            label = "Q_TAB";
+            #binding-cells = <0>;
+            tapping-term-ms = <200>;
+            bindings = <&kp P>, <&kp BSPC>;
+        };
     };
 
     keymap {
@@ -41,10 +45,10 @@
 
         default_layer {
             bindings = <
-    &none      &kp Q        &kp W    &kp E     &kp R           &kp T        &kp Y      &kp U          &kp I          &kp O          &kp P           &none
+    &none      &qtab        &kp W    &kp E     &kp R           &kp T        &kp Y      &kp U          &kp I          &kp O          &pbspc          &none
     &none      &mt LCTRL A  &kp S    &kp D     &kp F           &kp G        &kp H      &kp J          &kp K          &kp L          &dqenter        &none
     &none      &mt LSHFT Z  &kp X    &kp C     &kp V           &kp B        &kp N      &kp M          &kp COMMA      &kp DOT        &mt RSHFT FSLH  &none
-    &none      &lt 3 TAB    &kp LALT &kp LGUI  &lt 1 SPACE     &none        &none      &lt 2 SPACE    &mt RGUI BSPC  &none          &none           &none
+    &none      &kp ESC      &kp LALT &kp LGUI  &lt 1 SPACE     &none        &none      &lt 2 SPACE    &mt RGUI       &none          &none           &none
             >;
         };
 
@@ -53,7 +57,7 @@
     &trans     &kp EXCL      &kp AT     &kp HASH   &kp DLLR      &kp PRCNT  &kp CARET     &kp AMPS    &kp ASTRK  &kp LPAR   &kp RPAR        &none
     &trans     &lt 4 F1      &kp F2     &kp F3     &kp F4        &kp F5     &kp F6        &kp UNDER   &kp PLUS   &kp LBRC   &kp RBRC        &none
     &trans     &mt LSHFT F7  &kp F8     &kp F9     &kp F10       &kp F11    &kp F12       &kp MINUS   &kp GRAVE  &kp DQT    &mt RSHFT BSLH  &none
-    &trans     &kp LCTRL     &trans     &trans     &trans        &trans     &trans        &mo BT_CTRL &trans     &trans     &trans          &none
+    &trans     &kp LCTRL     &trans     &trans     &trans        &trans     &trans        &mo BT_CTRL &kp DEL    &trans     &trans          &none
             >;
         };
 
